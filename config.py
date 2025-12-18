@@ -10,7 +10,7 @@ USAGE_PENALTY = 0.05          # Popülerlik cezası
 WEIGHT_TECH = 0.70
 WEIGHT_SOCIAL = 0.30
 
-MIN_TECH_THRESHOLD = 0.70     # Baraj
+MIN_TECH_THRESHOLD = 0.15     # Baraj
 MAX_FEED_LENGTH = 50          # Listelenecek maksimum kişi
 
 # --- STRATEJİK EŞLEŞME TABLOSU (Dokümandan) ---
