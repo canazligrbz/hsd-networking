@@ -31,3 +31,29 @@ def calculate_matrices(df, social_cols, tech_cols):
 
     # social_dist vektörünü de döndürüyoruz (Eski kümeleme için gerekirse diye, şu an şart değil)
     return tech_sim_df, social_diff_df, social_dist
+
+def determine_user_type_from_answers(row_data):
+    """
+    Bir kullanıcının satır verisini alır, config.ANSWER_MAP sözlüğüne bakarak
+    en baskın karakterini (Analitik, Empatik vb.) bulur.
+    """
+    # Skorları tutacağımız sayaç
+    counts = {'Analitik': 0, 'Empatik': 0, 'Karar Verici': 0, 'Yenilikçi': 0}
+
+    # Hem sosyal hem teknik tüm soruları birleştirip tarıyoruz
+    all_cols = config.SOCIAL_COLS + config.TECHNICAL_COLS
+
+    for col in all_cols:
+        # Excel'den gelen veri bazen sayı veya boşluklu olabilir, string'e çevirip temizle
+        answer = str(row_data.get(col, "")).strip()
+
+        # Cevap bizim haritamızda var mı?
+        if answer in config.ANSWER_MAP:
+            category = config.ANSWER_MAP[answer]
+            counts[category] += 1
+
+    # En yüksek puanı alan kategoriyi seç
+    # Eğer eşitlik varsa (örneğin 5 Analitik, 5 Empatik), Python ilk bulduğunu seçer.
+    dominant_type = max(counts, key=counts.get)
+
+    return dominant_type
