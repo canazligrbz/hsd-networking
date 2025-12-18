@@ -1,72 +1,77 @@
 import pandas as pd
+import random
 import config
 
-
-def recommend_with_threshold(target_user_id, df, tech_sim_df, social_diff_df):
+def run_matching_logic(df, tech_sim_df, social_diff_df):
     """
-    TEKİL KULLANICI İÇİN ÖNERİ MOTORU (YENİ SİSTEM)
-
-    Adımlar:
-    1. Teknik Puanları ve Sosyal Mesafeleri al.
-    2. Teknik Barajı (config.MIN_TECH_THRESHOLD) geçenleri filtrele.
-    3. Barajı geçen yoksa 'Esnek Mod' ile en iyi teknik puanlıları al.
-    4. Stratejik Uyum (Analitik <-> Yenilikçi vb.) kontrolü yap.
-    5. Sıralama: Önce Stratejik Uyum, Sonra Film/Sosyal Benzerlik.
+    Toplu işlem (Batch) için akış sıralaması hesaplar.
     """
+    print("Akış sıralaması hesaplanıyor (Feed Mode)...")
 
-    # --- 1. Temel Verileri Çek ---
-    user_tech_scores = tech_sim_df[target_user_id]
-    user_social_diffs = social_diff_df[target_user_id]
+    usage_counts = {idx: 0 for idx in df.index}
+    long_format_results = []
 
-    # Hedef kişinin karakterini bul (Örn: "Analitik")
-    target_cluster = df.loc[target_user_id, 'social_cluster']
+    user_indices = list(df.index)
+    random.shuffle(user_indices)
 
-    # Bu karakter kiminle iyi anlaşır? (Config'den çekiyoruz)
-    compatible_types = config.COMPATIBILITY_MATRIX.get(target_cluster, [])
+    for user_id in user_indices:
+        user_cluster = df.loc[user_id, 'social_cluster']
+        candidates = []
 
-    # --- 2. Aday Havuzunu Oluştur ---
-    candidates = pd.DataFrame({
-        'User_ID': df.index,
-        'Tech_Score': user_tech_scores,  # Yüksek olması iyi
-        'Social_Diff': user_social_diffs,  # Düşük olması iyi (0 = Aynı)
-        'Cluster': df['social_cluster']
-    })
+        # İdeal partner listesini config'den çek
+        ideal_partners = config.COMPATIBILITY_MATRIX.get(user_cluster, [])
 
-    # Kişinin kendisini listeden çıkar
-    candidates = candidates[candidates['User_ID'] != target_user_id]
+        for candidate_id in df.index:
+            if user_id == candidate_id: continue
 
-    # --- 3. Teknik Filtreleme (Threshold) ---
-    passed_candidates = candidates[candidates['Tech_Score'] >= config.MIN_TECH_THRESHOLD].copy()
+            tech_score = tech_sim_df.loc[user_id, candidate_id]
 
-    # --- 4. Fallback (Güvenlik Ağı) ---
-    # Eğer barajı geçen kimse yoksa veya çok azsa (3 kişiden az), barajı yoksay.
-    if len(passed_candidates) < 3:
-        # Teknik puanı en yüksek 10 kişiyi getir (Kötünün iyileri)
-        passed_candidates = candidates.sort_values(by='Tech_Score', ascending=False).head(10).copy()
+            # (A) ÇÖP ELEME: Çok düşük teknik uyum varsa alma
+            if tech_score < config.MIN_TECH_THRESHOLD:
+                continue
 
-    # --- 5. Stratejik İşaretleme ---
-    # Adayın karakteri, bizim uyumlu listemizde var mı? (True/False)
-    passed_candidates['Is_Compatible'] = passed_candidates['Cluster'].isin(compatible_types)
+            social_diff = social_diff_df.loc[user_id, candidate_id]
+            cand_cluster = df.loc[candidate_id, 'social_cluster']
 
-    # --- 6. Final Sıralama ---
-    # Öncelik 1: Stratejik Uyum (True olanlar üste) -> ascending=False
-    # Öncelik 2: Sosyal Benzerlik (Mesafesi 0'a yakın olanlar üste) -> ascending=True
-    final_list = passed_candidates.sort_values(
-        by=['Is_Compatible', 'Social_Diff'],
-        ascending=[False, True]
-    )
+            # --- STRATEJİK BONUS ---
+            cluster_bonus = 0
+            if cand_cluster in ideal_partners:
+                cluster_bonus = config.CLUSTER_BONUS_PERFECT  # +0.30
+            elif user_cluster != cand_cluster:
+                cluster_bonus = config.CLUSTER_BONUS_DIFF  # +0.10
 
-    # --- 7. Sonucu Liste Olarak Döndür ---
-    results = []
-    for _, row in final_list.iterrows():
-        results.append({
-            'user_id': row['User_ID'],
-            'score': row['Tech_Score'],  # Ana skor teknik kalır
-            'tech': row['Tech_Score'],
-            'social_dist': row['Social_Diff'],
-            'cluster': row['Cluster'],
-            'is_compatible': row['Is_Compatible']
-        })
+            # Ceza
+            penalty = usage_counts[candidate_id] * config.USAGE_PENALTY
 
-    return results
+            # Puanlama
+            base_score = (tech_score * config.WEIGHT_TECH) + (social_diff * config.WEIGHT_SOCIAL)
+            sort_score = base_score + cluster_bonus - penalty
 
+            candidates.append({
+                'target_id': candidate_id,
+                'target_cluster': cand_cluster,
+                'tech_score': tech_score,
+                'final_score': base_score,
+                'sort_score': sort_score
+            })
+
+        # Sırala
+        candidates.sort(key=lambda x: x['sort_score'], reverse=True)
+
+        # Listeye Ekle
+        for rank, cand in enumerate(candidates):
+            if rank >= config.MAX_FEED_LENGTH: break
+
+            long_format_results.append({
+                'Kullanıcı_ID': user_id,
+                'Önerilen_ID': cand['target_id'],
+                'Sıralama': rank + 1,
+                'Uyum_Puanı': round(cand['final_score'], 3),
+                'Teknik_Uyum': round(cand['tech_score'], 3),
+                'Küme': cand['target_cluster']
+            })
+            usage_counts[cand['target_id']] += 1
+
+    results_df = pd.DataFrame(long_format_results)
+    results_df = results_df.sort_values(by=['Kullanıcı_ID', 'Sıralama'])
+    return results_df
