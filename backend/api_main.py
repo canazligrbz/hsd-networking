@@ -62,7 +62,12 @@ def match_teams(request: MatchRequest):
 
 # Serve React App
 # Frontend backend klasörünün bir üst dizininde
-FRONTEND_DIST = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIST = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend", "dist"))
+
+print(f"DEBUG: BASE_DIR = {BASE_DIR}")
+print(f"DEBUG: FRONTEND_DIST = {FRONTEND_DIST}")
+print(f"DEBUG: os.path.isdir(FRONTEND_DIST) = {os.path.isdir(FRONTEND_DIST)}")
 
 if os.path.isdir(FRONTEND_DIST):
     app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIST, "assets")), name="assets")
