@@ -1,111 +1,67 @@
-# AI-Powered Networking & Matchmaking System
-Bu proje,  katılımcıları teknik yetkinliklerine ve sosyal karakterlerine göre analiz edip, en verimli işbirliklerini (takım arkadaşlığı, mentorluk, network) oluşturmak için tasarlanmış akıllı bir eşleştirme motorudur.
+# 🚀 TeamSync — AI-Powered Matchmaking SaaS
 
-Geleneksel "rastgele tanışma" yerine, stratejik uyum prensibine göre veriye dayalı öneriler sunar.
+**Canlı Uygulama:** [teamsync-platform.run.app](https://networking-app-439792060733.europe-west4.run.app/)
 
-## Projenin Amacı
-Sadece "benzer" kişileri değil, birbirini tamamlayan kişileri bir araya getirmek.
+**TeamSync**, katılımcıları sadece "benzer" oldukları için değil, birbirlerini **"tamamladıkları"** için bir araya getiren, psikoloji ve matematik temelli bir akıllı eşleştirme platformudur. 
 
-- **Teknik Uyum**: Aynı dili konuşabilmeleri için teknik altyapı benzerliği (%70 Ağırlık).
+Geleneksel rastgele gruplandırma yöntemlerinin aksine, stratejik uyum prensibine dayalı veriye dayalı öneriler sunar.
 
-- **Sosyal Tamamlayıcılık**: Farklı bakış açıları için karakter zıtlığı/uyumu (%30 Ağırlık).
+---
 
-- **Stratejik Eşleşme**: Lider ruhlu birine (Karar Verici), iletişimci birini (Empatik) önermek gibi özel kurallar.
+## ✨ SaaS Özellikleri
+Proje, yerel bir Python scriptinden profesyonel bir **Multi-tenant SaaS** platformuna dönüştürülmüştür:
+- 🔐 **İK Yönetim Paneli:** Firebase Auth ile güvenli kayıt ve her İK uzmanına özel izole çalışma alanı.
+- 📅 **Etkinlik Yönetimi:** Sınırsız etkinlik oluşturma ve her etkinliğe özel benzersiz katılım linkleri.
+- 📱 **Canlı Katılım:** Katılımcılar anketleri kendi telefonlarından doldurur, sonuçlar anlık olarak İK paneline düşer.
+- 🤖 **Otomatik Eşleştirme:** Tek tıkla binlerce katılımcıyı saniyeler içinde en ideal takımlara böler.
 
-## Nasıl Çalışır? (Algoritma Mantığı)
-Sistem 4 aşamalı bir öneri motoru kullanır:
+---
 
-### 1. Karakter Analizi 
-Kullanıcıların ankete verdiği cevaplar analiz edilir ve kullanıcı 4 ana tipten birine atanır:
+## 🧠 Algoritma Mantığı (The Engine)
+Sistem, akademik araştırmalara dayanan 4 aşamalı bir hibrit motor kullanır:
 
-**Analitik**: Detaycı, planlı, veri odaklı.
+### 1. Karakter Analizi (Psychometric Profiling)
+Kullanıcıların ankete verdiği cevaplar analiz edilir ve kullanıcı 4 ana tipten birine atanır: **Analitik, Empatik, Karar Verici, Yenilikçi.**
 
-**Empatik**: İletişim odaklı, uyumlu, takım oyuncusu.
+### 2. Vektörleştirme (Vectorization) & Matris Hesaplama
+- **Teknik Sorular:** Kullanıcının uzmanlık alanları **One-Hot Encoding** yöntemi ile sayısal vektörlere dönüştürülür. İki kullanıcı arasındaki teknik uyum, bu vektörler üzerinden **Cosine Similarity** (Kosinüs Benzerliği) ile (0-1 arası) hesaplanır.
+- **Sosyal Sorular:** Kullanıcının sosyal tercihleri vektöre çevrilir ve **Cosine Distance** ile farklılık/tamamlayıcılık skoru hesaplanır.
 
-**Karar Verici**: Sonuç odaklı, hızlı, lider ruhlu.
+### 3. Hibrit Puanlama (Hybrid Scoring)
+Her aday çifti için nihai bir "Uyum Puanı" hesaplanır:
+$$Score = (Technical \times 0.70) + (Social \times 0.30) + Bonus - Penalty$$
+- **Stratejik Bonus:** Eğer adaylar "İdeal Partner" matrisindeyse (Örn: Analitik ↔ Karar Verici) +0.10 puan eklenir.
+- **Popülarite Cezası:** Bir adayın listeleri domine etmemesi için dengeleyici bir ceza puanı uygulanır.
 
-**Yenilikçi**: Yaratıcı, vizyoner, alternatif düşünen.
+### 4. Greedy Matching (Eşleştirme Akışı)
+Tüm puanlamalar tamamlandıktan sonra, en yüksek uyum puanına sahip kişileri eşleştirerek takımları inşa eden $O(n \log n)$ karmaşıklığında dinamik bir motor çalışır.
 
-### 2. Vektörleştirme & Matris Hesaplama
-**Teknik Sorular**: Kullanıcının uzmanlık alanları One-Hot Encoding ile vektöre çevrilir ve Cosine Similarity ile benzerlik skoru (0-1) hesaplanır.
+---
 
-**Sosyal Sorular**: Kullanıcının sosyal tercihleri vektöre çevrilir ve Cosine Distance ile farklılık skoru hesaplanır.
+## 🛠 Teknoloji Yığını
+- **Frontend:** React + Vite + Lucide Icons
+- **Backend:** Python (Matching Engine)
+- **Database & Auth:** Firebase Firestore & Authentication
+- **Deployment:** Google Cloud Run (Serverless)
 
-### 3. Hibrit Puanlama 
-Her aday için nihai bir **"Uyum Puanı"** hesaplanır:
+---
 
-$$
-\text{Score} = (\text{Technical} \times 0.70) + (\text{Social} \times 0.30) + \text{Bonus} - \text{Penalty}
-$$
+## 👨‍💻 Geliştirici Ekibi
+Bu proje, veriye dayalı işbirliğinin gücüne inanan bir ekip tarafından geliştirilmiştir:
 
-**Stratejik Bonus**: Eğer aday, kullanıcının "İdeal Partner" tablosundaysa (Örn: Analitik <-> Karar Verici) +0.10 Puan eklenir.
+- **Ömer Semih Uzun** - [LinkedIn](https://www.linkedin.com/in/omer-semih-uzun/) · [GitHub](https://github.com/omersemihuzun)
+- **Ayşe Nur Çetin** - [LinkedIn](https://www.linkedin.com/in/ay%C5%9Fe-nur-%C3%A7etin-9577782aa/) · [GitHub](https://github.com/aysenrctn)
+- **Nazlı Can Gürbüz** - [LinkedIn](https://www.linkedin.com/in/nazl%C4%B1-can-g%C3%BCrb%C3%BCz-14500531b/) · [GitHub](https://github.com/canazligrbz)
 
-**Farklı Küme Bonusu**: İdeal değil ama farklı bir kümedense +0.05 Puan eklenir.
+---
 
-**Popülarite Cezası**: Bir aday çok fazla kişiye önerildiyse, listeyi domine etmemesi için puanı hafifçe düşürülür.
+### Kurulum (Development)
+```bash
+# Repo'yu klonla
+git clone https://github.com/canazligrbz/hsd-networking.git
 
-### 4. Akış (Feed) Üretimi
-Sistem, her kullanıcı için en yüksek puandan en düşüğe doğru sıralanmış dinamik bir liste oluşturur.
-
-## Kurulum
-Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin.
-
-### 1. Adım: Projeyi İndirin
+# Frontend'i ayağa kaldır
+cd frontend
+npm install
+npm run dev
 ```
-git clone https://github.com/canazligrbz/networking-assistant.git
-cd networking-assistant
-```
-
-### 2. Adım: Sanal Ortam Oluşturun
-```
-# Windows için
-python -m venv .venv
-.venv\Scripts\activate
-
-# Mac/Linux için
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-### 3. Adım: Kütüphaneleri Yükleyin
-```
-pip install -r requirements.txt
-```
-
-## Kullanım
-Proje iki farklı modda çalışabilir:
-
-1. **Toplu İşlem Modu (Batch Processing)**
-Mevcut bir Excel/CSV dosyasındaki (anket.csv) herkesi birbiriyle eşleştirir ve çıktı dosyası oluşturur.
-
-```
-python main.py
-```
-2. **Canlı Mod (Real-Time Simulation)**
-Yeni bir kullanıcı sisteme kaydolduğunda ne olacağını simüle eder. main.py çalıştığında konsol ekranında rastgele bir kullanıcı seçilir ve ona özel Top 50 öneri listesi anlık olarak üretilir.
-
-## Proje Yapısı
-```
-networking-project/
-├── config.py           # Tüm ayarlar, katsayılar, sorular ve cevap anahtarı
-├── main.py             # Projenin giriş noktası
-│
-├── core/               
-│   ├── data_loader.py  # Veri okuma ve temizleme
-│   ├── analytics.py    # Vektör hesaplamaları ve tip belirleme
-│   └── matcher.py      # Eşleştirme algoritması ve mantığı
-│
-└── utils/              
-    └── reporting.py    # Raporlama ve analiz fonksiyonları
-```
-
-## Konfigürasyon
-Algoritmanın davranışını config.py dosyasından değiştirebilirsiniz:
-
-`WEIGHT_TECH`: Teknik puanın ağırlığı (Varsayılan: 0.70)
-
-`CLUSTER_BONUS_PERFECT`: İdeal eşleşme bonusu (Varsayılan: 0.10)
-
-`MIN_TECH_THRESHOLD`: Öneri listesine girmek için gereken minimum teknik puan (Varsayılan: 0.15)
-
-`COMPATIBILITY_MATRIX`: Hangi karakterin kiminle eşleşeceğini belirleyen tablo.
