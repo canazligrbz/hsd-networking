@@ -61,23 +61,20 @@ const useCases = [
 const team = [
   {
     name: 'Ömer Semih Uzun',
-    role: 'Algoritma & Backend',
     initials: 'ÖS',
     color: '#6366f1',
     linkedin: 'https://www.linkedin.com/in/omer-semih-uzun/',
     github: 'https://github.com/omersemihuzun',
   },
   {
-    name: 'Ayşenur Çetin',
-    role: 'Frontend & UX',
+    name: 'Ayşe Nur Çetin',
     initials: 'AÇ',
     color: '#00c9ff',
     linkedin: 'https://www.linkedin.com/in/ay%C5%9Fe-nur-%C3%A7etin-9577782aa/',
     github: 'https://github.com/aysenrctn',
   },
   {
-    name: 'Nazlıcan Gürbüz',
-    role: 'Veri & Analiz',
+    name: 'Nazlı Can Gürbüz',
     initials: 'NG',
     color: '#92fe9d',
     linkedin: 'https://www.linkedin.com/in/nazl%C4%B1-can-g%C3%BCrb%C3%BCz-14500531b/',
@@ -298,8 +295,7 @@ export default function LandingPage() {
                 {m.initials}
               </div>
               <div>
-                <h3 style={{ fontSize: '0.95rem', marginBottom: '2px' }}>{m.name}</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem' }}>{m.role}</p>
+                <h3 style={{ fontSize: '0.95rem', marginBottom: '8px' }}>{m.name}</h3>
               </div>
               <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer"
