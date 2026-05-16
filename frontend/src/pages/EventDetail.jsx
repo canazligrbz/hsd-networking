@@ -66,17 +66,17 @@ export default function EventDetail() {
         <ArrowLeft size={16} /> Etkinliklerim
       </button>
 
-      <div className="flex justify-between items-center header" style={{ flexWrap: 'wrap', gap: '16px' }}>
-        <div>
-          <h1 className="text-gradient" style={{ fontSize: '2rem' }}>{event?.name || '...'}</h1>
-          {event?.description && <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>{event.description}</p>}
+      <div className="flex justify-between items-center header" style={{ flexWrap: 'wrap', gap: '20px' }}>
+        <div style={{ minWidth: '240px' }}>
+          <h1 className="text-gradient" style={{ fontSize: 'clamp(1.6rem, 5vw, 2.2rem)' }}>{event?.name || '...'}</h1>
+          {event?.description && <p style={{ color: 'var(--text-secondary)', marginTop: '4px', fontSize: '0.9rem' }}>{event.description}</p>}
         </div>
-        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-          <button className="btn btn-secondary" style={{ fontSize: '0.9rem' }} onClick={copyLink}>
+        <div style={{ display: 'flex', gap: '8px', width: window.innerWidth < 640 ? '100%' : 'auto', flexWrap: 'wrap' }}>
+          <button className="btn btn-secondary" style={{ flex: 1, fontSize: '0.85rem' }} onClick={copyLink}>
             {copied ? <><CheckCheck size={16} /> Kopyalandı!</> : <><Copy size={16} /> Katılım Linki</>}
           </button>
-          <button className="btn btn-secondary" style={{ fontSize: '0.9rem' }} onClick={handleClear} disabled={participants.length === 0}>
-            <Trash2 size={16} /> Temizle
+          <button className="btn btn-secondary" style={{ width: 'auto', fontSize: '0.85rem' }} onClick={handleClear} disabled={participants.length === 0}>
+            <Trash2 size={16} />
           </button>
         </div>
       </div>
@@ -88,31 +88,31 @@ export default function EventDetail() {
       </div>
 
       {/* STATS */}
-      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginBottom: '24px' }}>
-        <div className="glass-card stat-card flex items-center justify-between">
+      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', marginBottom: '32px', gap: '16px' }}>
+        <div className="glass-card stat-card flex flex-row items-center justify-between" style={{ padding: '20px' }}>
           <div>
-            <div className="stat-label">Bağlı Katılımcı</div>
-            <div className="stat-value text-gradient">{participants.length}</div>
+            <div className="stat-label" style={{ fontSize: '0.75rem' }}>Bağlı Katılımcı</div>
+            <div className="stat-value text-gradient" style={{ fontSize: '2rem' }}>{participants.length}</div>
           </div>
-          <Users size={44} color="rgba(0,201,255,0.15)" />
+          <Users size={40} color="rgba(0,201,255,0.15)" />
         </div>
 
-        <div className="glass-card flex flex-col justify-between">
-          <div className="stat-label">Takım Büyüklüğü</div>
-          <div className="flex items-center" style={{ gap: '16px', marginTop: '12px' }}>
+        <div className="glass-card flex flex-col justify-between" style={{ padding: '20px' }}>
+          <div className="stat-label" style={{ fontSize: '0.75rem' }}>Takım Büyüklüğü</div>
+          <div className="flex items-center" style={{ gap: '12px', marginTop: '8px' }}>
             <input type="range" min="2" max="10" value={teamSize}
               onChange={e => setTeamSize(e.target.value)}
               style={{ flex: 1, accentColor: 'var(--primary-color)' }} />
-            <span style={{ fontSize: '1.5rem', fontWeight: 700 }}>{teamSize} Kişi</span>
+            <span style={{ fontSize: '1.2rem', fontWeight: 700, minWidth: '60px', textAlign: 'right' }}>{teamSize} Kişi</span>
           </div>
         </div>
 
-        <div className="glass-card flex items-center justify-center">
-          <button className="btn btn-primary" style={{ width: '100%', padding: '16px', fontSize: '1.05rem' }}
+        <div className="glass-card flex items-center justify-center" style={{ padding: '16px' }}>
+          <button className="btn btn-primary" style={{ width: '100%', padding: '14px', fontSize: '1rem' }}
             onClick={handleCreateTeams} disabled={isLoading || participants.length === 0}>
             {isLoading
-              ? <><Loader2 className="animate-spin" size={22} /> Hesaplanıyor...</>
-              : <><Zap size={22} /> Ekipleri Oluştur</>}
+              ? <><Loader2 className="animate-spin" size={20} /> Bekleyin...</>
+              : <><Zap size={20} /> Ekipleri Kur</>}
           </button>
         </div>
       </div>

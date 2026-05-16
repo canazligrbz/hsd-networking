@@ -45,19 +45,19 @@ export default function Dashboard() {
   return (
     <div className="container" style={{ paddingTop: '40px', paddingBottom: '60px' }}>
       {/* HEADER */}
-      <div className="flex justify-between items-center header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div className="flex justify-between items-center header" style={{ flexWrap: 'wrap', gap: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: '200px' }}>
           <Zap size={28} color="var(--primary-color)" />
           <div>
-            <h1 style={{ fontSize: '1.8rem' }} className="text-gradient">TeamSync AI</h1>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{user?.email}</p>
+            <h1 style={{ fontSize: 'clamp(1.4rem, 4vw, 1.8rem)' }} className="text-gradient">TeamSync AI</h1>
+            <p className="desktop-only" style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{user?.email}</p>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <button className="btn btn-primary" onClick={() => setShowCreate(true)}>
-            <Plus size={18} /> Yeni Etkinlik
+        <div style={{ display: 'flex', gap: '8px', width: window.innerWidth < 640 ? '100%' : 'auto' }}>
+          <button className="btn btn-primary" style={{ flex: 1 }} onClick={() => setShowCreate(true)}>
+            <Plus size={18} /> <span className="desktop-only">Yeni Etkinlik</span><span className="mobile-only">Yeni</span>
           </button>
-          <button className="btn btn-secondary" onClick={logoutUser}>
+          <button className="btn btn-secondary" style={{ width: 'auto' }} onClick={logoutUser}>
             <LogOut size={18} />
           </button>
         </div>
@@ -120,13 +120,13 @@ export default function Dashboard() {
         </div>
       ) : (
         <div>
-          <h2 style={{ marginTop: '40px', marginBottom: '24px', fontSize: '1.4rem' }}>
+          <h2 style={{ marginTop: '40px', marginBottom: '24px', fontSize: '1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             Etkinliklerim
-            <span style={{ marginLeft: '12px', fontSize: '0.9rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.05)', padding: '4px 12px', borderRadius: '20px' }}>
-              {events.length} etkinlik
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.05)', padding: '4px 12px', borderRadius: '20px' }}>
+              {events.length}
             </span>
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
             {events.map(ev => (
               <div key={ev.id} className="glass-card"
                 style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '16px' }}

@@ -61,7 +61,8 @@ def match_teams(request: MatchRequest):
         return {"error": str(e), "traceback": traceback.format_exc()}
 
 # Serve React App
-FRONTEND_DIST = os.path.join(os.path.dirname(__file__), "frontend", "dist")
+# Frontend backend klasörünün bir üst dizininde
+FRONTEND_DIST = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"))
 
 if os.path.isdir(FRONTEND_DIST):
     app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIST, "assets")), name="assets")

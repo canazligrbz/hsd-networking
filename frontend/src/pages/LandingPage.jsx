@@ -108,81 +108,81 @@ export default function LandingPage() {
       {/* ── NAV ──────────────────────────────────────── */}
       <nav style={{
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '18px 40px', borderBottom: '1px solid var(--border-color)',
+        padding: '14px 20px', borderBottom: '1px solid var(--border-color)',
         backdropFilter: 'blur(12px)', position: 'sticky', top: 0, zIndex: 100,
         background: 'rgba(15,17,26,0.85)',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Logo size={26} />
-          <span style={{ fontWeight: 700, fontSize: '1.15rem', letterSpacing: '-0.3px' }}>TeamSync</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Logo size={24} />
+          <span style={{ fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.3px' }}>TeamSync</span>
         </div>
 
-        <div style={{ display: 'flex', gap: '28px', alignItems: 'center' }}>
+        <div className="desktop-only" style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
           <button style={navLinkStyle('nasil')} onClick={() => scrollTo('nasil')}>Nasıl Çalışır</button>
           <button style={navLinkStyle('algoritma')} onClick={() => scrollTo('algoritma')}>Algoritma</button>
-          <button style={navLinkStyle('kullanim')} onClick={() => scrollTo('kullanim')}>Kullanım Alanları</button>
+          <button style={navLinkStyle('kullanim')} onClick={() => scrollTo('kullanim')}>Kullanım</button>
           <button style={navLinkStyle('ekip')} onClick={() => scrollTo('ekip')}>Ekip</button>
         </div>
 
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button className="btn btn-secondary" style={{ padding: '8px 18px', fontSize: '0.9rem' }}
-            onClick={() => navigate('/login')}>Giriş Yap</button>
-          <button className="btn btn-primary" style={{ padding: '8px 18px', fontSize: '0.9rem' }}
-            onClick={() => navigate('/login?tab=register')}>Ücretsiz Başla</button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="btn btn-secondary desktop-only" style={{ padding: '6px 14px', fontSize: '0.85rem', width: 'auto' }}
+            onClick={() => navigate('/login')}>Giriş</button>
+          <button className="btn btn-primary" style={{ padding: '6px 14px', fontSize: '0.85rem', width: 'auto' }}
+            onClick={() => navigate('/login?tab=register')}>Başla</button>
         </div>
       </nav>
 
       {/* ── HERO ─────────────────────────────────────── */}
-      <div style={{ textAlign: 'center', padding: '110px 20px 90px', maxWidth: '820px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '32px' }}>
-          {['Bootcamp', 'Hackathon', 'Kurumsal', 'Akademik Proje'].map(tag => (
+      <div style={{ textAlign: 'center', padding: '60px 20px 40px', maxWidth: '820px', margin: '0 auto' }}>
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '24px' }}>
+          {['Bootcamp', 'Hackathon', 'Kurumsal'].map(tag => (
             <span key={tag} style={{
-              padding: '5px 14px', borderRadius: '20px', fontSize: '0.8rem',
+              padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem',
               background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)',
               color: '#a5b4fc'
             }}>{tag}</span>
           ))}
         </div>
 
-        <h1 style={{ fontSize: 'clamp(2.6rem, 6vw, 4.2rem)', lineHeight: 1.1, marginBottom: '28px' }}>
+        <h1 style={{ fontSize: 'clamp(2.2rem, 8vw, 4rem)', lineHeight: 1.1, marginBottom: '20px' }}>
           <span className="text-gradient">Doğru Kişi,</span><br />Doğru Takım
         </h1>
 
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.75, marginBottom: '44px', maxWidth: '620px', margin: '0 auto 44px' }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(1rem, 4vw, 1.15rem)', lineHeight: 1.6, marginBottom: '32px', maxWidth: '620px', margin: '0 auto 32px' }}>
           Her katılımcının profili analiz edilir, birbirini tamamlayan
           karakterler bir araya getirilir — her seferinde dengeli, üretken gruplar.
         </p>
 
-        <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button className="btn btn-primary" style={{ padding: '14px 34px', fontSize: '1.05rem' }}
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', flexDirection: window.innerWidth < 640 ? 'column' : 'row' }}>
+          <button className="btn btn-primary" style={{ padding: '12px 28px', fontSize: '1rem' }}
             onClick={() => navigate('/login?tab=register')}>
-            Hemen Başla <ArrowRight size={20} />
+            Hemen Başla <ArrowRight size={18} />
           </button>
-          <button className="btn btn-secondary" style={{ padding: '14px 34px', fontSize: '1.05rem' }}
+          <button className="btn btn-secondary" style={{ padding: '12px 28px', fontSize: '1rem' }}
             onClick={() => scrollTo('algoritma')}>
-            Algoritma Hakkında <ChevronDown size={20} />
+            Algoritma <ChevronDown size={18} />
           </button>
         </div>
 
-        <div style={{ marginTop: '28px', display: 'flex', gap: '28px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          {['Ücretsiz', 'Kurulum yok', 'Sınırsız katılımcı'].map(t => (
-            <div key={t} style={{ display: 'flex', alignItems: 'center', gap: '7px', color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
-              <CheckCircle2 size={15} color="#92fe9d" /> {t}
+        <div style={{ marginTop: '32px', display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          {['Ücretsiz', 'Kurulum yok'].map(t => (
+            <div key={t} style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
+              <CheckCircle2 size={14} color="#92fe9d" /> {t}
             </div>
           ))}
         </div>
       </div>
 
       {/* ── NASIL ÇALIŞIR ────────────────────────────── */}
-      <div id="nasil" style={{ maxWidth: '960px', margin: '0 auto', padding: '60px 20px 80px' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '12px' }}>
+      <div id="nasil" style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 20px 60px' }}>
+        <h2 style={{ textAlign: 'center', fontSize: 'clamp(1.5rem, 5vw, 2rem)', marginBottom: '12px' }}>
           <span className="text-gradient">4 Adımda</span> Hazır
         </h2>
-        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '48px' }}>
+        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '32px', fontSize: '0.9rem' }}>
           Hesap aç, etkinliği oluştur, linki paylaş, takımları kur.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '20px' }}>
           {[
             { n: '01', t: 'Hesap Oluştur', d: 'IK olarak kayıt ol, saniyeler içinde paneline eriş.' },
             { n: '02', t: 'Etkinlik Aç', d: 'Etkinlik adı gir, benzersiz katılım linki otomatik oluşur.' },
@@ -191,65 +191,65 @@ export default function LandingPage() {
           ].map(s => (
             <div key={s.n} style={{ textAlign: 'center' }}>
               <div style={{
-                width: '60px', height: '60px', borderRadius: '50%', margin: '0 auto 16px',
+                width: '48px', height: '48px', borderRadius: '50%', margin: '0 auto 12px',
                 background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.1rem', fontWeight: 700, boxShadow: '0 4px 20px rgba(99,102,241,0.35)'
+                fontSize: '1rem', fontWeight: 700, boxShadow: '0 4px 15px rgba(99,102,241,0.3)'
               }}>{s.n}</div>
-              <h3 style={{ marginBottom: '8px', fontSize: '1rem' }}>{s.t}</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.6 }}>{s.d}</p>
+              <h3 style={{ marginBottom: '6px', fontSize: '0.95rem' }}>{s.t}</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: 1.5 }}>{s.d}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── ALGORİTMA ────────────────────────────────── */}
-      <div id="algoritma" style={{ maxWidth: '1100px', margin: '0 auto', padding: '60px 20px 80px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '52px' }}>
-          <span style={{ padding: '5px 14px', borderRadius: '20px', fontSize: '0.8rem', background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', color: '#a5b4fc' }}>
+      <div id="algoritma" style={{ maxWidth: '1100px', margin: '0 auto', padding: '40px 20px 60px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <span style={{ padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', color: '#a5b4fc' }}>
             Bilimsel Altyapı
           </span>
-          <h2 style={{ fontSize: '2rem', marginTop: '16px', marginBottom: '12px' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', marginTop: '12px', marginBottom: '12px' }}>
             Nasıl <span className="text-gradient">Çalışır?</span>
           </h2>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: '560px', margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '560px', margin: '0 auto', lineHeight: 1.6, fontSize: '0.9rem' }}>
             Akademik araştırma ve psikoloji teorilerine dayanan 4 aşamalı
             eşleştirme motoru her takımda farklı düşünce tarzlarını bir araya getirir.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
           {algorithmSteps.map(a => (
-            <div key={a.title} className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div key={a.title} className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ background: 'rgba(255,255,255,0.05)', width: '54px', height: '54px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ background: 'rgba(255,255,255,0.05)', width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {a.icon}
                 </div>
-                <span style={{ fontSize: '0.72rem', padding: '4px 10px', borderRadius: '12px', background: 'rgba(99,102,241,0.15)', color: '#a5b4fc', whiteSpace: 'nowrap' }}>
+                <span style={{ fontSize: '0.65rem', padding: '3px 8px', borderRadius: '10px', background: 'rgba(99,102,241,0.15)', color: '#a5b4fc', whiteSpace: 'nowrap' }}>
                   {a.tag}
                 </span>
               </div>
-              <h3 style={{ fontSize: '1rem', lineHeight: 1.3 }}>{a.title}</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.65, flexGrow: 1 }}>{a.detail}</p>
+              <h3 style={{ fontSize: '0.95rem', lineHeight: 1.3 }}>{a.title}</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.6, flexGrow: 1 }}>{a.detail}</p>
             </div>
           ))}
         </div>
 
         {/* Karakter Tipleri */}
-        <div style={{ marginTop: '48px' }}>
-          <h3 style={{ textAlign: 'center', marginBottom: '24px', color: 'var(--text-secondary)', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+        <div style={{ marginTop: '40px' }}>
+          <h3 style={{ textAlign: 'center', marginBottom: '20px', color: 'var(--text-secondary)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
             4 Karakter Tipi
           </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
             {[
               { t: 'Analitik', d: 'Sebep-sonuç odaklı, planlı, sorgulayıcı', c: '#6366f1' },
               { t: 'Empatik', d: 'Uyumlu, uzlaşmacı, takım odaklı', c: '#00c9ff' },
               { t: 'Karar Verici', d: 'Hızlı, liderlik eden, sonuç odaklı', c: '#fbbf24' },
               { t: 'Yenilikçi', d: 'Özgün, sezgisel, sistem dışı düşünen', c: '#92fe9d' },
             ].map(k => (
-              <div key={k.t} className="glass-card" style={{ padding: '16px', borderLeft: `3px solid ${k.c}` }}>
-                <h4 style={{ color: k.c, marginBottom: '6px', fontSize: '0.95rem' }}>{k.t}</h4>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.83rem', lineHeight: 1.5 }}>{k.d}</p>
+              <div key={k.t} className="glass-card" style={{ padding: '14px', borderLeft: `3px solid ${k.c}` }}>
+                <h4 style={{ color: k.c, marginBottom: '4px', fontSize: '0.9rem' }}>{k.t}</h4>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', lineHeight: 1.4 }}>{k.d}</p>
               </div>
             ))}
           </div>
@@ -257,82 +257,58 @@ export default function LandingPage() {
       </div>
 
       {/* ── KULLANIM ALANLARI ─────────────────────────── */}
-      <div id="kullanim" style={{ maxWidth: '1000px', margin: '0 auto', padding: '60px 20px 80px' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '12px' }}>
+      <div id="kullanim" style={{ maxWidth: '1000px', margin: '0 auto', padding: '40px 20px 60px' }}>
+        <h2 style={{ textAlign: 'center', fontSize: 'clamp(1.5rem, 5vw, 2rem)', marginBottom: '12px' }}>
           Her Etkinliğe <span className="text-gradient">Uygun</span>
         </h2>
-        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '44px' }}>
+        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '32px', fontSize: '0.9rem' }}>
           Bootcamp'ten hackathon'a, kurumsal etkinlikten akademik projeye.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
           {useCases.map(u => (
-            <div key={u.title} className="glass-card" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={{ fontSize: '2.8rem' }}>{u.emoji}</div>
-              <h3 style={{ fontSize: '1.05rem' }}>{u.title}</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.6 }}>{u.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── NEDEN TEAMSYNC ───────────────────────────── */}
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 20px 80px' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '40px' }}>
-          Neden <span className="text-gradient">TeamSync?</span>
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
-          {features.map(f => (
-            <div key={f.title} className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={{ background: 'rgba(255,255,255,0.05)', width: '52px', height: '52px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {f.icon}
-              </div>
-              <h3 style={{ fontSize: '1.05rem' }}>{f.title}</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.6 }}>{f.desc}</p>
+            <div key={u.title} className="glass-card" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '10px', padding: '24px' }}>
+              <div style={{ fontSize: '2.5rem' }}>{u.emoji}</div>
+              <h3 style={{ fontSize: '1rem' }}>{u.title}</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5 }}>{u.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── EKİP ─────────────────────────────────────── */}
-      <div id="ekip" style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 20px 80px' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '12px' }}>
+      <div id="ekip" style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 20px 60px' }}>
+        <h2 style={{ textAlign: 'center', fontSize: 'clamp(1.5rem, 5vw, 2rem)', marginBottom: '12px' }}>
           <span className="text-gradient">Geliştirici</span> Ekibi
         </h2>
-        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '44px' }}>
+        <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '32px', fontSize: '0.9rem' }}>
           Bu proje üç kişilik bir ekip tarafından geliştirildi.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
           {team.map(m => (
-            <div key={m.name} className="glass-card" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
-              {/* Avatar */}
+            <div key={m.name} className="glass-card" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center', padding: '20px' }}>
               <div style={{
-                width: '72px', height: '72px', borderRadius: '50%',
+                width: '64px', height: '64px', borderRadius: '50%',
                 background: `linear-gradient(135deg, ${m.color}33, ${m.color}66)`,
                 border: `2px solid ${m.color}55`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.4rem', fontWeight: 700, color: m.color,
+                fontSize: '1.2rem', fontWeight: 700, color: m.color,
               }}>
                 {m.initials}
               </div>
               <div>
-                <h3 style={{ fontSize: '1rem', marginBottom: '4px' }}>{m.name}</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem' }}>{m.role}</p>
+                <h3 style={{ fontSize: '0.95rem', marginBottom: '2px' }}>{m.name}</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem' }}>{m.role}</p>
               </div>
-              {/* Links */}
               <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
                 <a href={m.linkedin} target="_blank" rel="noopener noreferrer"
-                  style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', textDecoration: 'none', transition: 'color 0.2s' }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#a5b4fc'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
-                  <Link2 size={15} /> LinkedIn
+                  style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.75rem', textDecoration: 'none' }}>
+                  <Link2 size={14} /> LinkedIn
                 </a>
                 <a href={m.github} target="_blank" rel="noopener noreferrer"
-                  style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', textDecoration: 'none', transition: 'color 0.2s' }}
-                  onMouseEnter={e => e.currentTarget.style.color = 'white'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
-                  <ArrowUpRight size={15} /> GitHub
+                  style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.75rem', textDecoration: 'none' }}>
+                  <ArrowUpRight size={14} /> GitHub
                 </a>
               </div>
             </div>
@@ -341,25 +317,26 @@ export default function LandingPage() {
       </div>
 
       {/* ── CTA ──────────────────────────────────────── */}
-      <div style={{ textAlign: 'center', padding: '40px 20px 80px' }}>
-        <div className="glass-card" style={{ maxWidth: '580px', margin: '0 auto', padding: '48px' }}>
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '14px' }}>
+      <div style={{ textAlign: 'center', padding: '20px 20px 60px' }}>
+        <div className="glass-card" style={{ maxWidth: '580px', margin: '0 auto', padding: '32px 24px' }}>
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>
             Hemen <span className="text-gradient">Ücretsiz</span> Başla
           </h2>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '32px', lineHeight: 1.6 }}>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: 1.5, fontSize: '0.9rem' }}>
             Kredi kartı gerekmez. Dakikalar içinde ilk etkinliğini oluştur.
           </p>
-          <button className="btn btn-primary" style={{ padding: '14px 40px', fontSize: '1.05rem' }}
+          <button className="btn btn-primary" style={{ padding: '12px 32px', fontSize: '1rem' }}
             onClick={() => navigate('/login?tab=register')}>
-            Ücretsiz Hesap Oluştur <ArrowRight size={20} />
+            Ücretsiz Başla <ArrowRight size={18} />
           </button>
         </div>
       </div>
 
       {/* ── FOOTER ───────────────────────────────────── */}
-      <div style={{ textAlign: 'center', padding: '24px', borderTop: '1px solid var(--border-color)', color: 'var(--text-secondary)', fontSize: '0.82rem', display: 'flex', justifyContent: 'center', gap: '24px', flexWrap: 'wrap' }}>
+      <div style={{ textAlign: 'center', padding: '20px', borderTop: '1px solid var(--border-color)', color: 'var(--text-secondary)', fontSize: '0.75rem', display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
         <span>TeamSync © 2025</span>
-        <span>·</span>
+        <span className="desktop-only">·</span>
+        <span style={{ width: '100%', display: window.innerWidth < 640 ? 'block' : 'none' }}></span>
         <span>Ömer Semih Uzun · Ayşenur Çetin · Nazlıcan Gürbüz</span>
       </div>
     </div>

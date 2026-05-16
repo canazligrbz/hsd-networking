@@ -5,13 +5,16 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Bağımlılıkları kopyala ve yükle
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Tüm projeyi kopyala (frontend/dist dahil)
+# Tüm projeyi kopyala
 COPY . .
 
-# Çevresel değişken (Google Cloud Run otomatik olarak PORT değişkenini atar)
+# Çalışma dizinini backend'e çek
+WORKDIR /app/backend
+
+# Çevresel değişken
 ENV PORT 8000
 
 # Uygulamayı başlat
