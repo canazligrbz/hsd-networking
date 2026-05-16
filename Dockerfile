@@ -1,17 +1,26 @@
-# Python tabanlı resmi imaj
-FROM python:3.10-slim
+# --- Stage 1: Build Frontend ---
+FROM node:18-slim AS frontend-builder
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
 
-# Çalışma dizinini ayarla
+# --- Stage 2: Final Image ---
+FROM python:3.10-slim
 WORKDIR /app
 
-# Bağımlılıkları kopyala ve yükle
-COPY backend/requirements.txt .
+# Python dependencies
+COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Tüm projeyi kopyala
-COPY . .
+# Copy backend (Tüm backend dosyalarını ve alt klasörlerini kopyalar)
+COPY backend/ ./backend/
 
-# Çalışma dizinini backend'e çek
+# Copy built frontend from Stage 1
+COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
+
+# Çalışma dizinini backend yap
 WORKDIR /app/backend
 
 # Çevresel değişken
