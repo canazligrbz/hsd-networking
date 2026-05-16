@@ -22,13 +22,13 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDuvHMLf8zhEsAOcVLrHDbaJ7--ymQuhMs",
-  authDomain: "ilk-uygulamamm.firebaseapp.com",
-  databaseURL: "https://ilk-uygulamamm.firebaseio.com",
-  projectId: "ilk-uygulamamm",
-  storageBucket: "ilk-uygulamamm.firebasestorage.app",
-  messagingSenderId: "309389390890",
-  appId: "1:309389390890:web:5868449fae0e66bcb7ff53"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
